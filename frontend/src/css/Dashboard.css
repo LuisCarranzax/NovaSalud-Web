@@ -1,0 +1,168 @@
+.dashboard-page {
+    padding: 20px;
+    height: 100%;
+    background-color: #f8fafc;
+    color: #334155;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.dashboard-header {
+    margin-bottom: 24px;
+}
+
+.dashboard-header h1 {
+    font-size: 1.8rem;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+}
+
+.dashboard-header p {
+    color: #64748b;
+    margin: 0;
+}
+
+/* Grilla de Tarjetas de Resumen */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: transform 0.2s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+}
+
+.icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-info p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #64748b;
+    margin: 0 0 4px 0;
+}
+
+.stat-info h3 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin: 0 0 2px 0;
+}
+
+.stat-info span {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+/* Grilla Inferior */
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.content-panel {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.content-panel h2 {
+    font-size: 1.1rem;
+    color: #1e293b;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.empty-state {
+    text-align: center;
+    color: #94a3b8;
+    padding: 40px 0;
+}
+
+/* Variables de color estáticas para las tarjetas */
+.bg-emerald { background-color: #d1fae5; color: #10b981; }
+.bg-red { background-color: #fee2e2; color: #ef4444; }
+.bg-blue { background-color: #dbeafe; color: #3b82f6; }
+.bg-farma { background-color: #e0f2fe; color: #0ea5e9; }
+/* Lista de Semáforo de Stock */
+.stock-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.stock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+}
+
+.stock-item-info p {
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.9rem;
+}
+
+.stock-item-info span {
+    font-size: 0.75rem;
+    color: #64748b;
+    background: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+.stock-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.indicator-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+/* Colores del Semáforo */
+.status-red .indicator-dot { background-color: #ef4444; box-shadow: 0 0 4px #ef4444; }
+.status-red .stock-text { color: #ef4444; }
+
+.status-yellow .indicator-dot { background-color: #f59e0b; box-shadow: 0 0 4px #f59e0b; }
+.status-yellow .stock-text { color: #f59e0b; }
+
+.status-green .indicator-dot { background-color: #10b981; }
+.status-green .stock-text { color: #10b981; }

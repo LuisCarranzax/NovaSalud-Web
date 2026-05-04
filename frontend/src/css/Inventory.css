@@ -1,0 +1,230 @@
+/* Contenedor principal de la página */
+.inventory-page {
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8fafc;
+    color: #334155;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Cabecera */
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.inventory-header h1 {
+    font-size: 1.8rem;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+}
+
+.inventory-header p {
+    color: #64748b;
+    margin: 0;
+}
+
+/* Botones principales */
+.btn-primary {
+    background-color: #0ea5e9;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0284c7;
+}
+
+.btn-cancel {
+    background-color: #e2e8f0;
+    color: #475569;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Barra de búsqueda */
+.search-bar {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+}
+
+.search-input-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-container input {
+    width: 100%;
+    padding: 10px 10px 10px 36px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+}
+
+.search-input-container input:focus {
+    border-color: #0ea5e9;
+}
+
+/* Tabla */
+.table-container {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    flex: 1;
+    overflow-x: auto;
+}
+
+.inventory-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.inventory-table th {
+    background-color: #f1f5f9;
+    padding: 16px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.inventory-table td {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #334155;
+}
+
+/* Modal y Formulario */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    backdrop-filter: blur(4px);
+    
+}
+
+.modal-content {
+    background: white;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    padding: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+}
+
+.form-group input, .form-group select {
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #0ea5e9;
+}
+
+.error-text {
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.modal-footer {
+    padding: 20px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-radius: 0 0 16px 16px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Estilos para la sección de Precios Fraccionados */
+.price-section-title {
+    color: #0ea5e9;
+    border-bottom: 1px solid #e0f2fe;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: block;
+}
+
+.price-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.price-grid label {
+    font-size: 0.75rem;
+    color: #475569;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+}

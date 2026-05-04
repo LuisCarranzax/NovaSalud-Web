@@ -1,0 +1,139 @@
+.export-page {
+    padding: 20px;
+    height: 100%;
+    background-color: #f8fafc;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.export-header {
+    margin-bottom: 30px;
+}
+
+.export-header h1 {
+    font-size: 1.8rem;
+    color: #1e293b;
+    margin: 0 0 4px 0;
+}
+
+.export-header p {
+    color: #64748b;
+    margin: 0;
+}
+
+.export-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.export-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.card-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.icon-box {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-farma-light { background: #e0f2fe; color: #1e3a8a; }
+.bg-indigo-light { background: #e0e7ff; color: #4338ca; }
+
+.card-top h2 {
+    margin: 0 0 4px 0;
+    font-size: 1.25rem;
+    color: #1e293b;
+}
+
+.card-top p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.export-features {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 24px;
+    flex: 1;
+}
+
+.export-features ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.export-features li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    color: #475569;
+}
+
+.bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.bullet-farma { background: #0ea5e9; }
+.bullet-indigo { background: #6366f1; }
+
+.export-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.btn-export {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid;
+    transition: all 0.2s;
+}
+
+.btn-pdf {
+    background: #fef2f2;
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.btn-pdf:hover { background: #fee2e2; }
+
+.btn-excel {
+    background: #ecfdf5;
+    color: #059669;
+    border-color: #a7f3d0;
+}
+
+.btn-excel:hover { background: #d1fae5; }
