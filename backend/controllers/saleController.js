@@ -56,7 +56,7 @@ const createSale = async (req, res) => {
 // @route   GET /api/sales
 const getSales = async (req, res) => {
     try {
-        const sales = await Sale.find().sort({ createdAt: -1 });
+        const sales = await Sale.find().sort({ createdAt: -1 }).populate('items.productId');
         res.status(200).json(sales);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener ventas', error: error.message });

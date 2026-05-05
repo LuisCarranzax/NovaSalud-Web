@@ -8,6 +8,8 @@ const saleSchema = new mongoose.Schema({
             required: true
         },
         name: String,
+        category: String,
+        unit: String,
         quantity: {
             type: Number,
             required: true,

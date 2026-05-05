@@ -8,12 +8,9 @@ const SalesSummary = () => {
     const {
         filterDate, setFilterDate,
         searchTerm, setSearchTerm,
-        filteredSales, dailyTotal, loading
+        filteredSales, dailyTotal, loading, 
+        exportSalesPDF, exportSalesExcel
     } = useSales();
-
-    // Funciones simuladas para exportar (luego instalaremos jsPDF y xlsx)
-    const exportToPDF = () => alert("Generando PDF del reporte de ventas...");
-    const exportToExcel = () => alert("Generando Excel del reporte de ventas...");
 
     return (
         <div className="sales-page">
@@ -23,10 +20,11 @@ const SalesSummary = () => {
                     <p>Historial de transacciones y cuadre de caja diario</p>
                 </div>
                 <div style={{ display: 'flex', gap: '10px' }}>
-                    <button onClick={exportToPDF} className="btn-clear" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#dc2626', borderColor: '#fecaca' }}>
+                    <button onClick={exportSalesPDF} className="btn-cancel" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#dc2626', background: 'white', border: '1px solid #fecaca' }}>
                         <FileText size={18} /> PDF
                     </button>
-                    <button onClick={exportToExcel} className="btn-clear" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#059669', borderColor: '#a7f3d0' }}>
+
+                    <button onClick={exportSalesExcel} className="btn-cancel" style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#059669', background: 'white', border: '1px solid #a7f3d0' }}>
                         <FileSpreadsheet size={18} /> Excel
                     </button>
                 </div>
@@ -73,6 +71,7 @@ const SalesSummary = () => {
                         <thead>
                             <tr>
                                 <th>N° Transacción</th>
+                                <th>Producto</th>
                                 <th>Fecha y Hora</th>
                                 <th>Cant. Productos</th>
                                 <th>Método</th>
@@ -94,6 +93,12 @@ const SalesSummary = () => {
                                     <tr key={sale._id}>
                                         <td><strong>{sale._id.substring(sale._id.length - 6).toUpperCase()}</strong></td>
                                         <td>
+                                            <strong>{sale.items.map(item => item.name || (item.productId && item.productId.name) || 'Producto Desconocido').join(', ')}</strong>
+                                            <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '4px' }}>
+                                                {sale.items.map(item => item.category || (item.productId && item.productId.category) || 'Sin Categoría').join(', ')}
+                                            </div>
+                                        </td>
+                                        <td>
                                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                                 <span>{dateStr}</span>
                                                 <span style={{ fontSize: '0.8rem', color: '#94a3b8' }}>{timeStr}</span>
@@ -105,7 +110,12 @@ const SalesSummary = () => {
                                                 {sale.paymentMethod}
                                             </span>
                                         </td>
-                                        <td><strong>S/ {sale.totalAmount.toFixed(2)}</strong></td>
+                                        <td>
+                                            <strong>S/ {sale.totalAmount.toFixed(2)}</strong>
+                                            <div style={{ fontSize: '0.8rem', color: '#94a3b8', marginTop: '4px' }}>
+                                                {sale.items.map(item => item.unit || 'Unidad').join(', ')}
+                                            </div>
+                                        </td>
                                         <td style={{ textAlign: 'center' }}>
                                             <button className="btn-icon" title="Ver detalle">
                                                 <Receipt size={20} />

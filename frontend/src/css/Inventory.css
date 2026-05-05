@@ -101,6 +101,7 @@
     text-align: left;
 }
 
+
 .inventory-table th {
     background-color: #f1f5f9;
     padding: 16px;
@@ -109,6 +110,7 @@
     text-transform: uppercase;
     font-size: 0.85rem;
     border-bottom: 1px solid #e2e8f0;
+    
 }
 
 .inventory-table td {
@@ -133,8 +135,10 @@
 .modal-content {
     background: white;
     border-radius: 16px;
-    width: 100%;
+    width: 95%;
     max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
@@ -144,6 +148,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #f8fafc;
+}
+
+.modal-header h2 {
+    color: #1e293b;
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
 .modal-body {
@@ -173,6 +185,8 @@
 }
 
 .form-group input, .form-group select {
+    width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     border: 1px solid #cbd5e1;
     border-radius: 8px;
@@ -204,16 +218,18 @@
     to { opacity: 1; }
 }
 
-/* Estilos para la sección de Precios Fraccionados */
-.price-section-title {
-    color: #0ea5e9;
-    border-bottom: 1px solid #e0f2fe;
-    padding-bottom: 4px;
-    margin-bottom: 8px;
-    font-size: 0.85rem;
+/* Estilos para los títulos de sección */
+.section-title {
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
     font-weight: 600;
     display: block;
 }
+
+
 
 .price-grid {
     display: grid;
@@ -227,4 +243,35 @@
     font-weight: 600;
     margin-bottom: 4px;
     display: block;
+}
+
+.stock-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+
+
+}
+
+.stock-grid label {
+    font-size: 0.75rem;
+    color: #475569;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+    
+}
+
+@media (max-width: 640px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    .price-grid {
+        grid-template-columns: 1fr;
+    }
+    .form-group.full-width {
+        grid-column: span 1;
+    }
 }

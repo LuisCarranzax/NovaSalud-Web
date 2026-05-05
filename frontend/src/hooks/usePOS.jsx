@@ -82,6 +82,8 @@ export const usePOS = () => {
         const saleData = {
             items: cart.map(item => ({
                 productId: item._id,
+                name: item.name,
+                category: item.category,
                 quantity: item.quantity,
                 price: item.currentPrice,
                 unit: item.selectedUnit
