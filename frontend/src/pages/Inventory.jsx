@@ -68,7 +68,7 @@ const Inventory = () => {
                         <tr>
                             <th>Nombre</th>
                             <th>Categoría</th>
-                            <th>Precio</th>
+                            <th>Precio Proveedor</th>
                             <th>Stock</th>
                             <th>Vencimiento</th>
                             <th>Fecha Abastecimiento</th>
@@ -79,12 +79,12 @@ const Inventory = () => {
                         {filteredProducts.map((product) => (
                             <tr key={product._id}>
                                 <td><strong>{product.name}</strong></td>
-                                <td>{product.category}</td>
-                                <td>S/ {Number(product.priceUnit || product.priceBox).toFixed(2)}</td>
-                                <td>{product.stock} {product.unit}</td>
-                                <td>{product.expirationDate}</td>
-                                <td>{product.supplyDate || 'No registrada'}</td>
-                                <td>
+                                <td className="category">{product.category}</td>
+                                <td className="category">S/ {Number(product.priceUnit || product.priceBox).toFixed(2)}</td>
+                                <td className="category">{product.stock} {product.unit}</td>
+                                <td className="category">{product.expirationDate}</td>
+                                <td className="category">{product.supplyDate || 'No registrada'}</td>
+                                <td className="category">
                                     <button onClick={() => handleOpenEdit(product)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#64748b', marginRight: '10px' }}>
                                         <Edit size={18} />
                                     </button>
@@ -140,7 +140,7 @@ const Inventory = () => {
                                     </div>
                                     <div className="form-group full-width">
                                         <label style={{ color: '#0ea5e9', borderBottom: '1px solid #e0f2fe', paddingBottom: '4px', marginBottom: '8px' }}>
-                                            Stock y Unidad de Medida
+                                            Stocks
                                         </label>
                                         <div className="price-grid">
                                             <div>

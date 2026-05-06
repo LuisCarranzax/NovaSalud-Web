@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { Outlet, NavLink } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 import { 
     LayoutDashboard, 
     PackageSearch, 
@@ -12,12 +13,46 @@ import {
     TrendingUp
 } from 'lucide-react';
 import { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 
 const MainLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const { user, logout } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        toast((t) => (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                <span style={{ fontWeight: '500', color: '#1e293b' }}>
+                    ¿Estás seguro que deseas cerrar sesión?
+                </span>
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    <button 
+                        onClick={() => {
+                            toast.dismiss(t.id); // Cerramos la alerta
+                            logout();            // Limpiamos el contexto y localStorage
+                            navigate('/login');  // Redirigimos al Login
+                        }}
+                        style={{ background: '#ef4444', color: 'white', padding: '6px 12px', borderRadius: '6px', fontSize: '0.875rem', border: 'none', cursor: 'pointer' }}
+                    >
+                        Sí, salir
+                    </button>
+                    <button 
+                        onClick={() => toast.dismiss(t.id)} // Solo cerramos la alerta
+                        style={{ background: '#e2e8f0', color: '#475569', padding: '6px 12px', borderRadius: '6px', fontSize: '0.875rem', border: 'none', cursor: 'pointer' }}
+                    >
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        ), { 
+            duration: 5000, // La alerta dura 5 segundos antes de desaparecer sola
+            position: 'top-center'
+        });
+    };
 
     return (
-        <div className="flex h-screen w-full overflow-hidden bg-slate-50 font-sans">
+       <div className="flex h-screen w-full overflow-hidden bg-slate-50">
             {/* Overlay para móvil */}
             {isSidebarOpen && (
                 <div 
@@ -27,24 +62,25 @@ const MainLayout = () => {
             )}
 
             {/* Sidebar */}
-            <aside className={`fixed lg:static inset-y-0 left-0 z-30 w-64 bg-farmablue-dark text-white flex flex-col shadow-xl flex-shrink-0 transform transition-transform duration-300 ease-in-out ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+            <aside className="w-64 bg-farmablue-dark text-white flex flex-col">
                 {/* Perfil del Usuario / Cabecera Sidebar */}
-                <div className="p-6 border-b border-farmablue-dark/50 bg-black/10 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-farmablue-light flex items-center justify-center text-farmablue-dark">
-                            <User size={24} />
-                        </div>
-                        <div>
-                            <p className="text-sm font-light text-farmablue-light">Bienvenido,</p>
-                            <p className="font-semibold tracking-wide">Administrador</p>
-                        </div>
-                    </div>
+                <div className="p-6 border-b border-farmablue-dark/50 bg-black/10 flex flex-col items-center justify-center text-center relative">
                     <button 
-                        className="lg:hidden text-white/70 hover:text-white"
+                        className="absolute top-4 right-4 lg:hidden text-white/70 hover:text-white"
                         onClick={() => setIsSidebarOpen(false)}
                     >
                         <X size={24} />
                     </button>
+
+                    <div className="w-16 h-16 rounded-full bg-farmablue-light flex items-center justify-center text-farmablue-dark mb-3">
+                        <User size={32} />
+                    </div>
+                    <div style={{ padding: '24px' }}>
+                        <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', margin: '0 0 8px 0' }}>Nova Salud</h2>
+                        <p style={{ color: '#e0f2fe', fontSize: '1rem', margin: 0 }}>
+                            Bienvenido, {user?.nombre || 'Usuario'}
+                        </p>
+                    </div>
                 </div>
 
                 {/* Navegación */}
@@ -83,22 +119,16 @@ const MainLayout = () => {
                         <TrendingUp size={20} />
                         <span>Resumen de Ventas</span>
                     </NavLink>
-
-                    <NavLink 
-                        to="/exportar" 
-                        onClick={() => setIsSidebarOpen(false)}
-                        className={({isActive}) => `flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive ? 'bg-farmablue text-white' : 'hover:bg-white/10 text-slate-300'}`}
-                    >
-                        <FileDown size={20} />
-                        <span>Reportes y Exportación</span>
-                    </NavLink>
                 </nav>
 
                 {/* Botón de Cerrar Sesión */}
-                <div className="p-4 border-t border-white/10">
-                    <button className="flex items-center gap-3 px-4 py-3 w-full rounded-lg hover:bg-red-500/20 text-red-300 hover:text-red-400 transition-colors">
+                <div className="mt-auto p-4 border-t border-slate-700">
+                    <button 
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 w-full p-3 rounded-lg text-slate-300 hover:bg-red-500 hover:text-white transition-colors"
+                    >
                         <LogOut size={20} />
-                        <span>Cerrar Sesión</span>
+                        Cerrar Sesión
                     </button>
                 </div>
             </aside>
@@ -117,7 +147,7 @@ const MainLayout = () => {
                 </header>
 
                 {/* Contenido Principal */}
-                <main className="flex-1 overflow-y-auto p-4 md:p-8">
+                <main className="flex-1 overflow-y-auto">
                     <Outlet /> {/* Aquí se renderizarán las páginas (Inicio, Inventario, etc.) */}
                 </main>
             </div>

@@ -1,11 +1,10 @@
 import React from 'react';
 import '../css/Dashboard.css';
-import { TrendingUp, AlertTriangle, PackagePlus, ShoppingCart, Loader2 } from 'lucide-react';
+import { TrendingUp, AlertTriangle, PackagePlus, ShoppingCart, Loader2, CheckCircle2 } from 'lucide-react';
 import { useDashboard } from '../hooks/useDashboard';
 
 const Dashboard = () => {
-    const { stats, stockList, loading } = useDashboard();
-
+    const { stats, stockList, activityFeed, loading } = useDashboard();
     const statCards = [
         { title: "Ventas del Día", value: `S/ ${stats.todaySales.toFixed(2)}`, subtitle: "Total recaudado hoy", icon: TrendingUp, colorClass: "bg-emerald" },
         { title: "Stock Crítico", value: stats.criticalStock, subtitle: "Productos por agotar", icon: AlertTriangle, colorClass: "bg-red" },
@@ -45,11 +44,30 @@ const Dashboard = () => {
 
             <div className="content-grid">
                 {/* Panel de Ventas Recientes (Lo conectaremos a fondo más adelante si lo deseas) */}
+                {/* Panel de Últimos Movimientos */}
                 <div className="content-panel">
                     <h2>Últimos Movimientos</h2>
-                    <div className="empty-state">
-                        <p>El sistema está registrando las ventas correctamente.</p>
-                        <p style={{ fontSize: '0.8rem', marginTop: '10px' }}>Visita la pestaña "Resumen de Ventas" para ver el historial detallado.</p>
+                    <div className="activity-feed">
+                        {activityFeed.length === 0 ? (
+                            <div className="empty-state">No hay movimientos recientes registrados.</div>
+                        ) : (
+                            activityFeed.map((activity) => (
+                                <div key={activity.id} className="activity-item">
+                                    <div className={`activity-icon ${activity.type === 'SALE' ? 'icon-sale' : 'icon-add'}`}>
+                                        {activity.type === 'SALE' ? <ShoppingCart size={18} /> : <PackagePlus size={18} />}
+                                    </div>
+                                    <div className="activity-details">
+                                        <p>{activity.message}</p>
+                                        <span className="activity-time">
+                                            {activity.date.toLocaleDateString()} - {activity.date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </span>
+                                        {activity.type === 'SALE' && (
+                                            <span className="activity-amount">+ S/ {activity.amount.toFixed(2)}</span>
+                                        )}
+                                    </div>
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
 

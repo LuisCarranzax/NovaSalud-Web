@@ -11,6 +11,7 @@ export const useDashboard = () => {
     });
     const [stockList, setStockList] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [activityFeed, setActivityFeed] = useState([]);
 
     useEffect(() => {
         const fetchDashboardData = async () => {
@@ -59,7 +60,33 @@ export const useDashboard = () => {
                 sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
                 const newProds = products.filter(p => new Date(p.createdAt) >= sevenDaysAgo).length;
 
-                // Actualizar estados
+                // ... (tu código anterior de stock y stats)
+
+                // 4. Construir "Últimos Movimientos" (Activity Feed)
+                const recentSales = sales.map(s => ({
+                    id: `sale-${s._id}`,
+                    type: 'SALE',
+                    // Sumamos las cantidades de los items para saber cuántos productos llevó
+                    message: `Venta registrada (${s.items.reduce((acc, item) => acc + item.quantity, 0)} items)`,
+                    amount: s.totalAmount,
+                    date: new Date(s.createdAt)
+                }));
+
+                const recentProducts = products.map(p => ({
+                    id: `prod-${p._id}`,
+                    type: 'ADD',
+                    message: `Ingreso al inventario: ${p.name}`,
+                    amount: null,
+                    // Usamos createdAt para saber cuándo se registró en el sistema
+                    date: new Date(p.createdAt || p.supplyDate || Date.now()) 
+                }));
+
+                // Unimos ambos arreglos, ordenamos por fecha (más reciente primero) y tomamos los 6 primeros
+                const combinedActivity = [...recentSales, ...recentProducts]
+                    .sort((a, b) => b.date - a.date)
+                    .slice(0, 6);
+
+                // Actualizamos los estados
                 setStats({
                     todaySales,
                     criticalStock: criticalCount,
@@ -68,7 +95,7 @@ export const useDashboard = () => {
                 });
                 
                 setStockList(processedStock);
-
+                setActivityFeed(combinedActivity); // NUEVO ESTADO GUARDADO
             } catch (error) {
                 toast.error('Error al cargar métricas del Dashboard');
             } finally {
@@ -79,5 +106,5 @@ export const useDashboard = () => {
         fetchDashboardData();
     }, []);
 
-    return { stats, stockList, loading };
+    return { stats, stockList, loading, activityFeed };
 };

@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import ExcelJS from 'exceljs';
+import { AuthContext } from '../context/AuthContext';
 
 
 export const useInventory = () => {
@@ -12,6 +13,7 @@ export const useInventory = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [errors, setErrors] = useState({});
+    const { user } = useContext(AuthContext);
 
 
 
@@ -183,13 +185,16 @@ export const useInventory = () => {
             const fileNameDate = supplyFilterDate || "Historial_Completo";
             const fileName = `Inv_NovaSalud_${fileNameDate}`;
 
-            const tableColumn = ["Nombre", "Categoría", "Precio", "Stock", "Vencimiento", "Fecha Abastecimiento"];
+            const tableColumn = ["Nombre", "Categoría", "Precio Proveedor", "Precio Caja", "Precio Blister", "Precio Unidad", "Stock", "Vencimiento", "Fecha Abastecimiento"];
             const tableRows = [];
 
             filteredProducts.forEach(p => {
                 const productData = [
                     p.name,
                     p.category,
+                    `S/ ${(p.priceSupplier || p.priceBox || 0).toFixed(2)}`,
+                    `S/ ${(p.priceBox || p.priceUnit || 0).toFixed(2)}`,
+                    `S/ ${(p.priceTablet || p.priceUnit || 0).toFixed(2)}`,
                     `S/ ${(p.priceUnit || p.priceBox || 0).toFixed(2)}`,
                     `${p.stock} ${p.unit.substring(0,3)}.`,
                     p.expirationDate,
@@ -203,17 +208,18 @@ export const useInventory = () => {
             doc.setFontSize(11);
             doc.setTextColor(100);
             if (supplyFilterDate) {
-                doc.text(`Reporte filtrado por abastecimiento: ${supplyFilterDate}`, 14, 30);
+                doc.text(`Tipo de reporte: Filtrado por fecha de abastecimiento: ${supplyFilterDate}`, 14, 30);
             } else {
-                doc.text(`Reporte completo de inventario`, 14, 30);
+                doc.text(`Tipo de reporte: Completo`, 14, 30);
             }
-            doc.text(`Fecha de generación: ${new Date().toLocaleDateString()}`, 14, 40);
+            doc.text(`Generado por: ${user?.nombre || 'Usuario'}`, 14, 40);
+            doc.text(`Fecha de generación: ${new Date().toLocaleDateString()}`, 14, 50);
 
             // CORRECCIÓN: Usamos la función autoTable directamente pasando el 'doc'
             autoTable(doc, {
                 head: [tableColumn],
                 body: tableRows,
-                startY: 50,
+                startY: 60,
                 theme: 'grid',
                 headStyles: { fillColor: [14, 165, 233] } // Color Azul Farmablue
             });
