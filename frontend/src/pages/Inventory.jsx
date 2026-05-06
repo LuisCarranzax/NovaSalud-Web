@@ -128,7 +128,7 @@ const Inventory = () => {
                                     </div>
 
                                     <div className="form-group">
-                                        <label>Precio (S/)</label>
+                                        <label>Precio de proveedor(S/)</label>
                                         <input type="number" step="0.01" name="price" value={formData.price} onChange={handleInputChange} />
                                     </div>
                                     <div className="form-group">
@@ -137,7 +137,7 @@ const Inventory = () => {
                                     </div>
                                     <div className="form-group full-width">
                                         <label style={{ color: '#0ea5e9', borderBottom: '1px solid #e0f2fe', paddingBottom: '4px', marginBottom: '8px' }}>
-                                            Stocks
+                                            Precios de Venta
                                         </label>
                                         <div className="price-grid">
                                             <div>

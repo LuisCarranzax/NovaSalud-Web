@@ -193,6 +193,7 @@ export const useInventory = () => {
                     `${p.stock} ${p.unit.substring(0,3)}.`,
                     p.expirationDate,
                     p.supplyDate
+                    
                 ];
                 tableRows.push(productData);
             });
