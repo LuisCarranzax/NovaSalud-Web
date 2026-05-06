@@ -13,7 +13,6 @@ const createSale = async (req, res) => {
 
         let totalCalculated = 0;
 
-        // 1. Validar stock y calcular total
         for (const item of items) {
             const product = await Product.findById(item.productId);
             
@@ -30,7 +29,6 @@ const createSale = async (req, res) => {
             totalCalculated += item.price * item.quantity;
         }
 
-        // 2. Crear la venta
         const sale = new Sale({
             items,
             totalAmount: totalCalculated,
@@ -39,7 +37,6 @@ const createSale = async (req, res) => {
 
         const savedSale = await sale.save();
 
-        // 3. DESCONTAR STOCK (Actualización en tiempo real)
         for (const item of items) {
             await Product.findByIdAndUpdate(item.productId, {
                 $inc: { stock: -item.quantity, salesCount: item.quantity }

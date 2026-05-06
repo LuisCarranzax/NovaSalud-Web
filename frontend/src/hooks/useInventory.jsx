@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext';
 
 export const useInventory = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [supplyFilterDate, setSupplyFilterDate] = useState(''); // Nuevo estado para el filtro
+    const [supplyFilterDate, setSupplyFilterDate] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [errors, setErrors] = useState({});
@@ -22,7 +22,6 @@ export const useInventory = () => {
     };
     const [formData, setFormData] = useState(initialFormState);
     
-    // El arreglo ahora inicia vacío. Se llenará desde la base de datos.
     const [products, setProducts] = useState([]);
 
     // 1. LEER (GET): Obtener productos al cargar la página
@@ -33,8 +32,6 @@ export const useInventory = () => {
     const fetchProducts = async () => {
         try {
             const response = await api.get('/products');
-            // Como las fechas vienen con formato ISO (ej. 2025-10-15T00:00:00.000Z), 
-            // las formateamos a YYYY-MM-DD para que los inputs tipo "date" las lean bien
             const formattedProducts = response.data.map(p => ({
                 ...p,
                 expirationDate: p.expirationDate ? p.expirationDate.split('T')[0] : '',
@@ -72,7 +69,6 @@ export const useInventory = () => {
         if (!formData.name.trim()) newErrors.name = "El nombre es obligatorio";
         if (!formData.category) newErrors.category = "Selecciona una categoría";
 
-        // Validación: Al menos uno de los precios debe ser mayor a 0
         if (!(formData.priceBox > 0 || formData.priceTablet > 0 || formData.priceUnit > 0)) {
             newErrors.price = "Debes ingresar al menos un precio válido";
         }
@@ -108,7 +104,6 @@ export const useInventory = () => {
                 // ACTUALIZAR (PUT)
                 const response = await api.put(`/products/${editingId}`, processedData);
                 
-                // Formatear la fecha que devuelve el servidor
                 const updatedProduct = {
                     ...response.data,
                     expirationDate: response.data.expirationDate.split('T')[0]
@@ -172,7 +167,6 @@ export const useInventory = () => {
                              product.category.toLowerCase().includes(searchTerm.toLowerCase());
         
         // 2. Filtro por fecha de abastecimiento
-        // Extraemos solo la parte YYYY-MM-DD de la fecha de la base de datos para comparar
         const productSupplyDate = product.supplyDate ? product.supplyDate.split('T')[0] : '';
         const matchesDate = supplyFilterDate === '' || productSupplyDate === supplyFilterDate;
 
@@ -215,13 +209,12 @@ export const useInventory = () => {
             doc.text(`Generado por: ${user?.nombre || 'Usuario'}`, 14, 40);
             doc.text(`Fecha de generación: ${new Date().toLocaleDateString()}`, 14, 50);
 
-            // CORRECCIÓN: Usamos la función autoTable directamente pasando el 'doc'
             autoTable(doc, {
                 head: [tableColumn],
                 body: tableRows,
                 startY: 60,
                 theme: 'grid',
-                headStyles: { fillColor: [14, 165, 233] } // Color Azul Farmablue
+                headStyles: { fillColor: [14, 165, 233] }
             });
 
             doc.save(`${fileName}.pdf`);
@@ -274,11 +267,11 @@ export const useInventory = () => {
                 cell.fill = {
                     type: 'pattern',
                     pattern: 'solid',
-                    fgColor: { argb: '0EA5E9' } // Tu color Farmablue
+                    fgColor: { argb: '0EA5E9' }
                 };
                 cell.font = {
                     bold: true,
-                    color: { argb: 'FFFFFF' }, // Texto blanco
+                    color: { argb: 'FFFFFF' },
                     size: 12
                 };
                 cell.alignment = { vertical: 'middle', horizontal: 'center' };
@@ -292,9 +285,8 @@ export const useInventory = () => {
 
             // 4. DAR ESTILOS A LAS CELDAS DE DATOS Y ALINEACIÓN
             worksheet.eachRow((row, rowNumber) => {
-                if (rowNumber > 1) { // Omitimos la cabecera
+                if (rowNumber > 1) {
                     row.eachCell((cell, colNumber) => {
-                        // Bordes para todas las celdas
                         cell.border = {
                             top: { style: 'thin' },
                             left: { style: 'thin' },
@@ -316,7 +308,6 @@ export const useInventory = () => {
             const buffer = await workbook.xlsx.writeBuffer();
             const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
             
-            // Usamos una descarga nativa o file-saver
             const url = window.URL.createObjectURL(blob);
             const anchor = document.createElement('a');
             anchor.href = url;

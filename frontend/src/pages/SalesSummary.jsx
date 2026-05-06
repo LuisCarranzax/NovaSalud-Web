@@ -4,7 +4,6 @@ import { Calendar, Search, Receipt, TrendingUp, FileText, FileSpreadsheet } from
 import { useSales } from '../hooks/useSales'; // Importamos la conexión real
 
 const SalesSummary = () => {
-    // Traemos los datos y funciones desde tu Hook de ventas
     const {
         filterDate, setFilterDate,
         searchTerm, setSearchTerm,
@@ -81,12 +80,10 @@ const SalesSummary = () => {
                         </thead>
                         <tbody>
                             {filteredSales.map((sale) => {
-                                // Separamos la fecha y hora que viene de MongoDB (ISO String)
                                 const dateObj = new Date(sale.createdAt);
                                 const dateStr = dateObj.toLocaleDateString();
                                 const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                                 
-                                // Calculamos total de items sumando las cantidades del arreglo
                                 const totalItems = sale.items.reduce((sum, item) => sum + item.quantity, 0);
 
                                 return (

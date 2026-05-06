@@ -6,7 +6,7 @@ require('dotenv').config();
 // 1. Importar Rutas
 const productRoutes = require('./routes/productRoutes');
 const saleRoutes = require('./routes/saleRoutes');
-const authRoutes = require('./routes/authRoutes'); // <-- NUEVA IMPORTACIÓN
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 
@@ -20,7 +20,7 @@ connectDB();
 // 2. Uso de las Rutas
 app.use('/api/products', productRoutes);
 app.use('/api/sales', saleRoutes);
-app.use('/api/auth', authRoutes); // <-- NUEVA CONEXIÓN DE RUTA
+app.use('/api/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

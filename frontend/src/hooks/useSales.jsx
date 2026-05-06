@@ -157,13 +157,11 @@ export const useSales = () => {
             const url = window.URL.createObjectURL(blob);
             const anchor = document.createElement('a');
             anchor.href = url;
-            anchor.download = nombreArchivo; // Usamos el nombre dinámico aquí
+            anchor.download = nombreArchivo;
             anchor.click();
             window.URL.revokeObjectURL(url);
 
             toast.success(`Excel exportado: ${nombreArchivo}`);
-
-            //toast.success('Inventario exportado correctamente');
         } catch (error) {
             toast.error('Error al generar el Excel de ventas');
             console.error(error);

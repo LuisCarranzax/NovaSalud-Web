@@ -4,7 +4,7 @@ const saleSchema = new mongoose.Schema({
     items: [{
         productId: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Product', // Referencia al modelo de Productos
+            ref: 'Product',
             required: true
         },
         name: String,

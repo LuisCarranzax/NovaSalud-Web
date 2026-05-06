@@ -4,7 +4,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 20px;
-  background-color: #f0f4f8; /* Fondo general */
+  background-color: #f0f4f8;
 }
 
 .auth-split-panel {
@@ -35,7 +35,7 @@
   z-index: 10;
 }
 
-/* Logo con contorno blanco grueso para protegerlo en fondos transparentes/oscuros */
+
 .logo-placeholder {
   width: 80px;
   height: 80px;
@@ -47,7 +47,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin: 0 auto 20px auto;
-  border: 3px solid #ffffff; /* Contorno blanco sólido solicitado */
+  border: 3px solid #ffffff;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -72,12 +72,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px; /* Un poco menos de padding vertical que el login para que quepa todo */
+  padding: 40px;
 }
 
 .auth-form-content {
   width: 100%;
-  max-width: 400px; /* Un poco más ancho para las filas dobles */
+  max-width: 400px;
 }
 
 .welcome-text {
@@ -123,7 +123,7 @@
 
 .input-group-modern input {
   width: 100%;
-  padding: 14px 45px 14px 45px; /* Espacio para el icono a la izquierda */
+  padding: 14px 45px 14px 45px;
   border: 1px solid #e1e8ed;
   background-color: #f9fbfd;
   border-radius: 12px;
@@ -133,15 +133,13 @@
 }
 
 /* EFECTO DE OBLIGATORIO Y VALIDACIÓN */
-/* Borde rojo delgado a la izquierda si está vacío pero es requerido */
 .input-group-modern input:required {
   border-left: 4px solid #ff4d4f;
 }
 
-/* Cambia a verde cuando el usuario llena el campo correctamente */
 .input-group-modern input:required:valid {
   border-left: 4px solid #52c41a;
-  background-color: #f4fff4; /* Fondo sutilmente verde */
+  background-color: #f4fff4;
 }
 
 .input-group-modern input:focus {
@@ -171,7 +169,7 @@
 
 .input-group-modern input[type="password"],
 .input-group-modern input[type="text"] {
-  padding-right: 45px; /* Espacio para el botón del ojo */
+  padding-right: 45px;
 }
 
 /* MEDIDOR DE SEGURIDAD */
@@ -237,7 +235,7 @@
     flex-direction: column-reverse;
   }
   .form-row-duo {
-    flex-direction: column; /* En móviles los campos dobles se ponen uno sobre otro */
+    flex-direction: column;
     gap: 16px;
   }
   .auth-visual-side {
@@ -291,8 +289,6 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Asegurando el borde blanco del logo según tus especificaciones de diseño */
 .logo-placeholder {
-  /* ... tus estilos anteriores ... */
   border: 3px solid #ffffff; 
 }

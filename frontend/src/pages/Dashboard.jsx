@@ -43,7 +43,6 @@ const Dashboard = () => {
             </div>
 
             <div className="content-grid">
-                {/* Panel de Ventas Recientes (Lo conectaremos a fondo más adelante si lo deseas) */}
                 {/* Panel de Últimos Movimientos */}
                 <div className="content-panel">
                     <h2>Últimos Movimientos</h2>
@@ -71,9 +70,9 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* NUEVO: Semáforo de Stock */}
+                {/* Semáforo de Stock */}
                 <div className="content-panel">
-                    <h2>Estado del Inventario (Semáforo)</h2>
+                    <h2>Estado del Inventario</h2>
                     <div className="stock-list">
                         {stockList.map(product => (
                             <div key={product._id} className="stock-item">

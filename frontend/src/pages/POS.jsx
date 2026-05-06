@@ -4,7 +4,6 @@ import { Search, ShoppingCart, Plus, Minus, Trash2, CreditCard, Banknote, CheckC
 import { usePOS } from '../hooks/usePOS';
 
 const POS = () => {
-    // Importamos toda la lógica desde nuestro Custom Hook
     const {
         searchTerm, setSearchTerm, selectedCategory, setSelectedCategory, categories,
         cart, paymentMethod, setPaymentMethod, filteredProducts, totalAmount,
@@ -51,7 +50,6 @@ const POS = () => {
                                 {product.stock > 0 ? `Stock: ${product.stock} ${product.unit.substring(0,3)}.` : 'Agotado'}
                             </p>
                             <div className="product-bottom">
-                                {/* Mostramos el precio base referencial (Unidad o Caja) */}
                                 <span className="product-price">S/ {(product.priceUnit || product.priceBox || 0).toFixed(2)}</span>
                                 <div className="add-btn" style={{ background: product.stock > 0 ? '#0ea5e9' : '#cbd5e1' }}>
                                     <Plus size={18} />
@@ -83,7 +81,6 @@ const POS = () => {
                                             <option value="Tabletas">Tabletas</option>
                                             <option value="Unidades">Unidades</option>
                                         </select>
-                                        {/* Precio dinámico según la presentación elegida */}
                                         <span className="item-price">S/ {(item.currentPrice * item.quantity).toFixed(2)}</span>
                                     </div>
                                 </div>

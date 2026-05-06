@@ -3,10 +3,8 @@ import { Search, Plus, Edit, Trash2, X } from 'lucide-react';
 import { useInventory } from '../hooks/useInventory';
 import { Calendar } from 'lucide-react';
 
- // Asegúrate de tener estas funciones implementadas para exportar a PDF y Excel
 import { FileText, FileSpreadsheet } from 'lucide-react';
-
-import '../css/Inventory.css'; // Asegúrate de tener este archivo CSS para los estilos específicos de esta página
+import '../css/Inventory.css';
 const Inventory = () => {
     const {
         searchTerm, setSearchTerm, isModalOpen, setIsModalOpen,
@@ -108,7 +106,6 @@ const Inventory = () => {
                             </button>
                         </div>
                         
-                        {/* BOTONES MOVIDOS ADENTRO DEL FORM */}
                         <form onSubmit={handleSubmit}>
                             <div className="modal-body">
                                 <div className="form-grid">

@@ -98,7 +98,6 @@ export const usePOS = () => {
             });
             setCart([]);
             
-            // Recargar productos para actualizar el stock en pantalla
             const res = await api.get('/products');
             setProducts(res.data);
         } catch (error) {

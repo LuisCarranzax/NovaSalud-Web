@@ -1,35 +1,43 @@
 import React, { useState } from 'react';
 import { FiMail, FiLock, FiEye, FiEyeOff, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
-import '../../css/auth/Register.css';
-
+import { useNavigate } from 'react-router-dom';
+import api from '../../services/api'; // Importamos Axios
+import '../../css/auth/Register.css'; // Ajusta la ruta de tu CSS si es necesario
 
 const UpdatePassword = () => {
-  const [step, setStep] = useState(1); // Paso 1: Correo, Paso 2: Nueva Contraseña
+  const [step, setStep] = useState(1);
   const [email, setEmail] = useState('');
   const [passwords, setPasswords] = useState({ newPassword: '', confirmNewPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [alert, setAlert] = useState(null);
+  const navigate = useNavigate();
 
-  // MANEJO DEL PASO 1: Verificar Correo
-  const handleVerifyEmail = (e) => {
+  // MANEJO DEL PASO 1: Verificar Correo en MongoDB
+  const handleVerifyEmail = async (e) => {
     e.preventDefault();
     if (!email) {
       setAlert({ type: 'error', message: 'Ingresa tu correo para continuar.' });
       return;
     }
 
-    const userExists = mockUsers.find(u => u.correo === email);
-    
-    if (userExists) {
+    try {
+      // Petición real al backend
+      await api.post('/auth/verify-email', { correo: email });
+      
+      // Si la petición es exitosa (código 200), pasamos al paso 2
       setAlert(null);
-      setStep(2); // Avanza al siguiente paso
-    } else {
-      setAlert({ type: 'error', message: 'No existe una cuenta con este correo.' });
+      setStep(2);
+    } catch (error) {
+      // Si el backend devuelve un 404, mostramos el error
+      setAlert({ 
+        type: 'error', 
+        message: error.response?.data?.message || 'Error de conexión con el servidor.' 
+      });
     }
   };
 
-  // MANEJO DEL PASO 2: Actualizar Contraseña
-  const handleUpdatePassword = (e) => {
+  // MANEJO DEL PASO 2: Actualizar Contraseña en MongoDB
+  const handleUpdatePassword = async (e) => {
     e.preventDefault();
     
     if (!passwords.newPassword || !passwords.confirmNewPassword) {
@@ -42,13 +50,23 @@ const UpdatePassword = () => {
       return;
     }
 
-    // Aquí iría el PUT request a tu backend Node.js
-    setAlert({ type: 'success', message: '¡Contraseña actualizada con éxito! Redirigiendo...' });
-    
-    // Simular redirección al login
-    setTimeout(() => {
-      window.location.href = '/login'; 
-    }, 2000);
+    try {
+      // Enviamos el correo (que guardamos en el Paso 1) y la nueva clave
+      await api.put('/auth/update-password', { 
+          correo: email, 
+          newPassword: passwords.newPassword 
+      });
+
+      setAlert({ type: 'success', message: '¡Contraseña actualizada con éxito! Redirigiendo...' });
+      
+      // Redirigimos al Login usando react-router-dom
+      setTimeout(() => navigate('/login'), 2000);
+    } catch (error) {
+      setAlert({ 
+        type: 'error', 
+        message: error.response?.data?.message || 'Hubo un error al actualizar la contraseña.' 
+      });
+    }
   };
 
   return (
@@ -116,14 +134,16 @@ const UpdatePassword = () => {
             )}
 
             <div className="auth-redirect" style={{ marginTop: '20px' }}>
-              <a href="/login">Volver al Inicio de Sesión</a>
+              <a href="/login" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>
+                Volver al Inicio de Sesión
+              </a>
             </div>
           </div>
         </div>
 
         <div className="auth-visual-side">
           <div className="branding-content">
-            <div className="logo-placeholder">SG</div>
+            <div className="logo-placeholder">NS</div>
             <h2 className="brand-name">Seguridad Primero</h2>
             <p className="brand-slogan">Mantén tus credenciales seguras para proteger el inventario y las ventas.</p>
           </div>

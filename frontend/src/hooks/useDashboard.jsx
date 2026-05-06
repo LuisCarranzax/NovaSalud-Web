@@ -16,7 +16,6 @@ export const useDashboard = () => {
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                // Hacemos las dos peticiones al mismo tiempo para mayor velocidad
                 const [salesRes, productsRes] = await Promise.all([
                     api.get('/sales'),
                     api.get('/products')
@@ -36,20 +35,19 @@ export const useDashboard = () => {
                 let outOfStockCount = 0;
 
                 const processedStock = products.map(p => {
-                    let status = 'green'; // Buen stock
+                    let status = 'green';
                     
                     if (p.stock === 0) {
-                        status = 'red'; // Agotado
+                        status = 'red';
                         outOfStockCount++;
                     } else if (p.stock <= p.minStock) {
-                        status = 'yellow'; // Crítico / Por agotar
+                        status = 'yellow';
                         criticalCount++;
                     }
 
                     return { ...p, status };
                 });
 
-                // Ordenar la lista: Primero los rojos, luego amarillos, luego verdes
                 processedStock.sort((a, b) => {
                     const order = { red: 1, yellow: 2, green: 3 };
                     return order[a.status] - order[b.status];
@@ -60,13 +58,10 @@ export const useDashboard = () => {
                 sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
                 const newProds = products.filter(p => new Date(p.createdAt) >= sevenDaysAgo).length;
 
-                // ... (tu código anterior de stock y stats)
-
                 // 4. Construir "Últimos Movimientos" (Activity Feed)
                 const recentSales = sales.map(s => ({
                     id: `sale-${s._id}`,
                     type: 'SALE',
-                    // Sumamos las cantidades de los items para saber cuántos productos llevó
                     message: `Venta registrada (${s.items.reduce((acc, item) => acc + item.quantity, 0)} items)`,
                     amount: s.totalAmount,
                     date: new Date(s.createdAt)
@@ -77,25 +72,22 @@ export const useDashboard = () => {
                     type: 'ADD',
                     message: `Ingreso al inventario: ${p.name}`,
                     amount: null,
-                    // Usamos createdAt para saber cuándo se registró en el sistema
                     date: new Date(p.createdAt || p.supplyDate || Date.now()) 
                 }));
 
-                // Unimos ambos arreglos, ordenamos por fecha (más reciente primero) y tomamos los 6 primeros
                 const combinedActivity = [...recentSales, ...recentProducts]
                     .sort((a, b) => b.date - a.date)
                     .slice(0, 6);
 
-                // Actualizamos los estados
                 setStats({
                     todaySales,
                     criticalStock: criticalCount,
                     newProducts: newProds,
-                    suggestedOrders: criticalCount + outOfStockCount // Todo lo que esté en amarillo o rojo
+                    suggestedOrders: criticalCount + outOfStockCount
                 });
                 
                 setStockList(processedStock);
-                setActivityFeed(combinedActivity); // NUEVO ESTADO GUARDADO
+                setActivityFeed(combinedActivity);
             } catch (error) {
                 toast.error('Error al cargar métricas del Dashboard');
             } finally {

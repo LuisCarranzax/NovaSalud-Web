@@ -1,14 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { FiMail, FiLock, FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
-import api from '../../services/api'; // Nuestra conexión a Axios
+import api from '../../services/api';
 import { AuthContext } from '../../context/AuthContext';
 import '../../css/auth/Login.css'; 
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ correo: '', password: '' });
   const [alert, setAlert] = useState(null); 
-  const { login } = useContext(AuthContext); // Extraemos la función del contexto
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -25,15 +25,12 @@ const Login = () => {
     }
 
     try {
-      // Petición real al backend
       const response = await api.post('/auth/login', credentials);
       
       setAlert({ type: 'success', message: response.data.message });
       
-      // Guardamos la sesión globalmente
       login(response.data.user);
       
-      // Redirigimos al Dashboard
       setTimeout(() => navigate('/'), 1500);
 
     } catch (error) {
@@ -82,7 +79,7 @@ const Login = () => {
           <div className="branding-content">
             <div className="logo-placeholder">NS</div>
             <h2 className="brand-name">Nova Salud</h2>
-            <p className="brand-slogan">Automatiza tus ventas, optimiza tu negocio y olvida el cuaderno.</p>
+            <p className="brand-slogan">Su farmacia digital a un click de distancia y con la confianza de siempre.</p>
           </div>
         </div>
       </div>

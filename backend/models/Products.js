@@ -15,13 +15,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'La categoría es obligatoria']
     },
-    // NUEVO CAMPO AÑADIDO
     unit: {
         type: String,
         enum: ['Cajas', 'Tabletas', 'Unidades'],
         default: 'Unidades'
     },
-    // PRECIOS FRACCIONADOS
     priceBox: {
         type: Number,
         default: 0
@@ -45,12 +43,10 @@ const productSchema = new mongoose.Schema({
         required: [true, 'El stock mínimo es obligatorio para las alertas'],
         default: 10
     },
-    // ... campos anteriores
     expirationDate: {
         type: Date,
         required: [true, 'La fecha de vencimiento es obligatoria']
     },
-    // NUEVO CAMPO
     supplyDate: {
         type: Date,
         default: Date.now // Si no se pone, toma la fecha actual
@@ -65,7 +61,7 @@ const productSchema = new mongoose.Schema({
         default: 0 
     }
 }, {
-    timestamps: true // Crea automáticamente los campos createdAt y updatedAt
+    timestamps: true
 });
 
 module.exports = mongoose.model('Product', productSchema);

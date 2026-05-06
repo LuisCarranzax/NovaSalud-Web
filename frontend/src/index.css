@@ -16,7 +16,7 @@ html, body, #root {
   color: #334155;
 }
 
-/* Eliminamos cualquier límite de ancho que Vite intente imponer */
+
 #root {
   max-width: none !important;
   text-align: left !important;
@@ -47,7 +47,7 @@ body {
   margin: 0;
 }
 
-/* Deleted `#root` container width limits to ensure full screen expansion */
+
 
 h1,
 h2 {

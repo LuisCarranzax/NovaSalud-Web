@@ -14,7 +14,7 @@ import {
 } from 'react-icons/fi';
 import { evaluatePasswordStrength } from '../../utils/passwordValidator';
 import { Link } from 'react-router-dom';
-import '../../css/auth/Register.css'; // Mantenemos el CSS que ya configuramos con transiciones y alertas
+import '../../css/auth/Register.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -29,12 +29,12 @@ const Register = () => {
   
   const [strength, setStrength] = useState(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [alert, setAlert] = useState(null); // Estado para las alertas personalizadas
+  const [alert, setAlert] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setAlert(null); // Limpiamos la alerta en cuanto el usuario empieza a escribir de nuevo
+    setAlert(null);
 
     if (name === 'password') {
       setStrength(evaluatePasswordStrength(value));
@@ -68,7 +68,6 @@ const Register = () => {
       
       setAlert({ type: 'success', message: '¡Cuenta creada exitosamente! Redirigiendo al login...' });
       
-      // Redirección usando react-router-dom
       setTimeout(() => navigate('/login'), 2000);
 
     } catch (error) {
@@ -94,7 +93,6 @@ const Register = () => {
               </div>
             )}
             
-            {/* Agregamos noValidate para desactivar los tooltips feos del navegador */}
             <form onSubmit={handleSubmit} className="auth-form-visual" noValidate>
               
               <div className="form-row-duo">

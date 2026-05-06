@@ -1,7 +1,5 @@
-//ESTA PAGINA AUN SE ENCUENTRA EN DESARROLLO, NO IMPLEMENTAR
-
 import React from 'react';
-import '../css/ExportData.css'; // Asegúrate de tener este archivo CSS para los estilos específicos de esta página
+import '../css/ExportData.css'; 
 import { FileText, FileSpreadsheet, FileArchive, TrendingUp } from 'lucide-react';
 
 const ExportData = () => {

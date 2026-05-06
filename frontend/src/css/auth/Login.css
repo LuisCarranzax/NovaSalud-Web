@@ -1,4 +1,4 @@
-/* Login.css */
+
 
 .login-page-container {
   display: flex;
@@ -14,7 +14,7 @@
   max-width: 1000px;
   background-color: #ffffff;
   border-radius: 20px;
-  overflow: hidden; /* Para que los bordes redondeados afecten a los hijos */
+  overflow: hidden;
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
   min-height: 600px;
 }
@@ -22,7 +22,7 @@
 /* --- LADO VISUAL (Le da vida) --- */
 .login-visual-side {
   flex: 1;
-  background: linear-gradient(135deg, #4A90E2 0%, #1890ff 100%); /* Gradiente azul vibrante */
+  background: linear-gradient(135deg, #4A90E2 0%, #1890ff 100%);
   position: relative;
   display: flex;
   justify-content: center;
@@ -31,13 +31,7 @@
   color: white;
 }
 
-/* Opcional: una imagen de fondo difuminada relacionada con tecnología/datos */
-/* .login-visual-side {
-  background-image: url('tu-imagen.jpg');
-  background-size: cover;
-  background-position: center;
-}
-*/
+
 
 .branding-content {
   position: relative;
@@ -76,7 +70,7 @@
 
 /* --- LADO FORMULARIO --- */
 .login-form-side {
-  flex: 1.2; /* Un poco más ancho el formulario */
+  flex: 1.2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,12 +114,12 @@
   left: 15px;
   font-size: 1.1rem;
   color: #aaa;
-  pointer-events: none; /* No interfiere al hacer click */
+  pointer-events: none;
 }
 
 .input-group-modern input {
   width: 100%;
-  padding: 15px 15px 15px 45px; /* Más padding a la izquierda para el icono */
+  padding: 15px 15px 15px 45px;
   border: 1px solid #e1e8ed;
   background-color: #f9fbfd;
   border-radius: 12px;
@@ -197,7 +191,7 @@
 /* Responsividad básica */
 @media (max-width: 768px) {
   .login-split-panel {
-    flex-direction: column-reverse; /* Formulario arriba, visual abajo */
+    flex-direction: column-reverse;
   }
   
   .login-visual-side {
@@ -206,7 +200,7 @@
   }
   
   .brand-name { font-size: 1.5rem; }
-  .brand-slogan { font-size: 0.9rem; display: none;} /* Ocultamos slogan en móvil */
+  .brand-slogan { font-size: 0.9rem; display: none;}
 
   .login-form-side {
     padding: 40px 20px;

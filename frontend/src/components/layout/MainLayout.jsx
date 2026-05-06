@@ -29,16 +29,16 @@ const MainLayout = () => {
                 <div style={{ display: 'flex', gap: '8px' }}>
                     <button 
                         onClick={() => {
-                            toast.dismiss(t.id); // Cerramos la alerta
-                            logout();            // Limpiamos el contexto y localStorage
-                            navigate('/login');  // Redirigimos al Login
+                            toast.dismiss(t.id);
+                            logout();
+                            navigate('/login');
                         }}
                         style={{ background: '#ef4444', color: 'white', padding: '6px 12px', borderRadius: '6px', fontSize: '0.875rem', border: 'none', cursor: 'pointer' }}
                     >
                         Sí, salir
                     </button>
                     <button 
-                        onClick={() => toast.dismiss(t.id)} // Solo cerramos la alerta
+                        onClick={() => toast.dismiss(t.id)}
                         style={{ background: '#e2e8f0', color: '#475569', padding: '6px 12px', borderRadius: '6px', fontSize: '0.875rem', border: 'none', cursor: 'pointer' }}
                     >
                         Cancelar
@@ -46,7 +46,7 @@ const MainLayout = () => {
                 </div>
             </div>
         ), { 
-            duration: 5000, // La alerta dura 5 segundos antes de desaparecer sola
+            duration: 5000,
             position: 'top-center'
         });
     };
@@ -148,7 +148,7 @@ const MainLayout = () => {
 
                 {/* Contenido Principal */}
                 <main className="flex-1 overflow-y-auto">
-                    <Outlet /> {/* Aquí se renderizarán las páginas (Inicio, Inventario, etc.) */}
+                    <Outlet />
                 </main>
             </div>
             
